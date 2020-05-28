@@ -22,69 +22,53 @@
 
 #pragma once
 
-#include <tacopie/utils/typedefs.hpp>
+#include <cstdint>
+#include <stdexcept>
+#include <string>
+
+#include "logger.hpp"
 
 namespace tacopie {
 
-//!
-//! used to force poll to wake up
-//! simply make poll watch for read events on one side of the pipe and write to the other side
-//!
-class self_pipe {
-public:
-  //! ctor
-  self_pipe(void);
-  //! dtor
-  ~self_pipe(void);
+	//
+	// specialized runtime_error used for tacopie error
+	//
+	class tacopie_error : public std::runtime_error
+	{
+	public:
+		tacopie_error(const std::string& what, const std::string& file, std::size_t line)
+			: std::runtime_error(what)
+			, m_file(file)
+			, m_line(line)
+		{ }
 
-  //! copy ctor
-  self_pipe(const self_pipe&) = delete;
-  //! assignment operator
-  self_pipe& operator=(const self_pipe&) = delete;
+		~tacopie_error() = default;
 
-public:
-  //!
-  //! \return the read fd of the pipe
-  //!
-  fd_t get_read_fd(void) const;
+		// copy ctor
+		tacopie_error(const tacopie_error&) = default;
+		// assignment operator
+		tacopie_error& operator=(const tacopie_error&) = default;
 
-  //!
-  //! \return the write fd of the pipe
-  //!
-  fd_t get_write_fd(void) const;
+	public:
+		// Returns file in which error occured
+		const std::string& get_file() const { return m_file; }
 
-  //!
-  //! notify the self pipe (basically write to the pipe)
-  //!
-  void notify(void);
+		// Returns line at which the error occured
+		std::size_t get_line() const { return m_line; }
 
-  //!
-  //! clear the pipe (basically read from the pipe)
-  //!
-  void clr_buffer(void);
+	private:
+		// File location of the error
+		std::string m_file;
 
-private:
-#ifdef _WIN32
-  //!
-  //! socket fd
-  //!
-  fd_t m_fd;
-
-  //!
-  //! socket information
-  //!
-  struct sockaddr m_addr;
-
-  //!
-  //! socket information (addr len)
-  //!
-  int m_addr_len;
-#else
-  //!
-  //! pipe file descriptors
-  //!
-  fd_t m_fds[2];
-#endif /* _WIN32 */
-};
+		// Line location of the error
+		std::size_t m_line;
+	};
 
 } // namespace tacopie
+
+// macro for convenience
+#define __TACOPIE_THROW(level, what)                          \
+  {                                                           \
+	__TACOPIE_LOG(level, (what));                             \
+	throw tacopie::tacopie_error((what), __FILE__, __LINE__); \
+  }

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{e1b60c96-7d5e-4a00-87d0-2e8277751f02}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\error.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\io_service.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\logger.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\self_pipe.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\tacopie.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\tcp_client.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\tcp_server.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\tcp_socket.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\thread_pool.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)include\typedefs.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\io_service.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\logger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\self_pipe.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\tcp_client.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\tcp_server.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\tcp_socket.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)include\thread_pool.cpp" />
+  </ItemGroup>
+</Project>

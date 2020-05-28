@@ -23,18 +23,25 @@
 #pragma once
 
 #ifdef _WIN32
-#pragma comment( lib, "ws2_32.lib")
+#include <winsock2.h>
 #endif /* _WIN32 */
 
-//! utils
-#include <tacopie/utils/error.hpp>
-#include <tacopie/utils/logger.hpp>
-#include <tacopie/utils/typedefs.hpp>
+namespace tacopie 
+{
 
-//! network
-#include <tacopie/network/io_service.hpp>
-#include <tacopie/network/tcp_server.hpp>
-#include <tacopie/network/tcp_socket.hpp>
+	// file descriptor platform type
+	#ifdef _WIN32
+		typedef SOCKET fd_t;
+		#define __TACOPIE_INVALID_FD INVALID_SOCKET
+	#else
+		typedef int fd_t;
+		#define __TACOPIE_INVALID_FD -1
+	#endif /* _WIN32 */
 
-//! utils
-#include <tacopie/utils/thread_pool.hpp>
+	// ssize_t
+	#if defined(_MSC_VER)
+		#include <BaseTsd.h>
+		typedef SSIZE_T ssize_t;
+	#endif
+
+} // tacopie

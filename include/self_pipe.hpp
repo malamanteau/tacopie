@@ -22,57 +22,38 @@
 
 #pragma once
 
-#include <cstdint>
-#include <stdexcept>
-#include <string>
-
-#include <tacopie/utils/logger.hpp>
+#include "typedefs.hpp"
 
 namespace tacopie {
 
-//!
-//! specialized runtime_error used for tacopie error
-//!
-class tacopie_error : public std::runtime_error {
-public:
-  //! ctor
-  tacopie_error(const std::string& what, const std::string& file, std::size_t line);
-  //! assignment operator
-  ~tacopie_error(void) = default;
+	// Used to force poll to wake up
+	// Simply make poll watch for read events on one side of the pipe and write to the other side
+	class self_pipe
+	{
+	public:
+		 self_pipe();
+		~self_pipe();
 
-  //! copy ctor
-  tacopie_error(const tacopie_error&) = default;
-  //! assignment operator
-  tacopie_error& operator=(const tacopie_error&) = default;
+		
+		self_pipe            (const self_pipe&) = delete; // copy ctor
+		self_pipe & operator=(const self_pipe&) = delete; // assignment operator
 
-public:
-  //!
-  //! \return file in which error occured
-  //!
-  const std::string& get_file(void) const;
+	public:
+		
+		fd_t get_read_fd()  const;
+		fd_t get_write_fd() const;
 
-  //!
-  //! \return line at which the error occured
-  //!
-  std::size_t get_line(void) const;
+		void notify(); // Notify the self pipe (basically write to the pipe)
+		void clr_buffer(); // clear the pipe (basically read from the pipe)
 
-private:
-  //!
-  //! file location of the error
-  //!
-  std::string m_file;
-
-  //!
-  //! line location of the error
-  //!
-  std::size_t m_line;
-};
-
+	private:
+		#ifdef _WIN32
+			fd_t m_fd; // socket fd
+			struct sockaddr m_addr; // socket information
+			int m_addr_len; // socket information (addr len)
+		#else
+			// pipe file descriptors
+			fd_t m_fds[2];
+		#endif
+	};
 } // namespace tacopie
-
-//! macro for convenience
-#define __TACOPIE_THROW(level, what)                          \
-  {                                                           \
-    __TACOPIE_LOG(level, (what));                             \
-    throw tacopie::tacopie_error((what), __FILE__, __LINE__); \
-  }

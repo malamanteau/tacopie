@@ -20,69 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-//! guard for bulk content integration depending on how user integrates the library
-#ifndef _WIN32
+#pragma once
 
-#include <tacopie/network/self_pipe.hpp>
-#include <tacopie/utils/error.hpp>
-
-#include <fcntl.h>
-#include <unistd.h>
-
-namespace tacopie {
-
-//!
-//! ctor & dtor
-//!
-self_pipe::self_pipe(void)
-: m_fds{__TACOPIE_INVALID_FD, __TACOPIE_INVALID_FD} {
-  if (pipe(m_fds) == -1) { __TACOPIE_THROW(error, "pipe() failure"); }
-}
-
-self_pipe::~self_pipe(void) {
-  if (m_fds[0] != __TACOPIE_INVALID_FD) {
-    close(m_fds[0]);
-  }
-
-  if (m_fds[1] != __TACOPIE_INVALID_FD) {
-    close(m_fds[1]);
-  }
-}
-
-//!
-//! get rd/wr fds
-//!
-fd_t
-self_pipe::get_read_fd(void) const {
-  return m_fds[0];
-}
-
-fd_t
-self_pipe::get_write_fd(void) const {
-  return m_fds[1];
-}
-
-template <typename T1>
-void
-___ignore_unused(T1 const&) {}
-
-//!
-//! notify
-//!
-void
-self_pipe::notify(void) {
-  ___ignore_unused(write(m_fds[1], "a", 1));
-}
-
-//!
-//! clr buffer
-//!
-void
-self_pipe::clr_buffer(void) {
-  char buf[1024];
-  ___ignore_unused(read(m_fds[0], buf, 1024));
-}
-
-} // namespace tacopie
-
+#ifdef _WIN32
+#pragma comment( lib, "ws2_32.lib")
 #endif /* _WIN32 */
+
+//! utils
+#include "error.hpp"
+#include "logger.hpp"
+#include "typedefs.hpp"
+
+//! network
+#include "io_service.hpp"
+#include "tcp_server.hpp"
+#include "tcp_socket.hpp"
+
+//! utils
+#include "thread_pool.hpp"

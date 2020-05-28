@@ -41,13 +41,11 @@ SOFTWARE.
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\sources\network\common\tcp_socket.cpp" />
     <ClCompile Include="..\sources\network\io_service.cpp" />
+    <ClCompile Include="..\sources\network\self_pipe.cpp" />
     <ClCompile Include="..\sources\network\tcp_client.cpp" />
     <ClCompile Include="..\sources\network\tcp_server.cpp" />
-    <ClCompile Include="..\sources\network\windows\windows_self_pipe.cpp" />
-    <ClCompile Include="..\sources\network\windows\windows_tcp_socket.cpp" />
-    <ClCompile Include="..\sources\utils\error.cpp" />
+    <ClCompile Include="..\sources\network\tcp_socket.cpp" />
     <ClCompile Include="..\sources\utils\logger.cpp" />
     <ClCompile Include="..\sources\utils\thread_pool.cpp" />
   </ItemGroup>
@@ -57,45 +55,43 @@ SOFTWARE.
     <ClInclude Include="..\includes\tacopie\network\tcp_client.hpp" />
     <ClInclude Include="..\includes\tacopie\network\tcp_server.hpp" />
     <ClInclude Include="..\includes\tacopie\network\tcp_socket.hpp" />
+    <ClInclude Include="..\includes\tacopie\tacopie.hpp" />
     <ClInclude Include="..\includes\tacopie\utils\error.hpp" />
     <ClInclude Include="..\includes\tacopie\utils\logger.hpp" />
     <ClInclude Include="..\includes\tacopie\utils\thread_pool.hpp" />
     <ClInclude Include="..\includes\tacopie\utils\typedefs.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\includes\tacopie\tacopie" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5DC28D31-04A5-4509-8EE3-CF16DE77475B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>tacopie</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -148,6 +144,7 @@ SOFTWARE.
       <PreprocessorDefinitions>_DEBUG;_LIB;_WIN32;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -182,6 +179,7 @@ SOFTWARE.
       <PreprocessorDefinitions>NDEBUG;_LIB;_WIN32;_WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

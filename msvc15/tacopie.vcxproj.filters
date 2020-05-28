@@ -41,12 +41,6 @@ SOFTWARE.
     <Filter Include="Source Files\network">
       <UniqueIdentifier>{77bcf86a-ad46-4674-96c6-bd0c9f4cdf25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\network\windows">
-      <UniqueIdentifier>{736b7b08-b8cd-40d7-bc65-b2f3380f27ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\network\common">
-      <UniqueIdentifier>{ee9af803-75ff-4ff8-b996-09ff196b0def}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\tacopie">
       <UniqueIdentifier>{579e51d2-5b11-435c-acb0-d7a4cd8e5412}</UniqueIdentifier>
     </Filter>
@@ -58,23 +52,11 @@ SOFTWARE.
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\sources\utils\error.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
     <ClCompile Include="..\sources\utils\logger.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\sources\utils\thread_pool.cpp">
       <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sources\network\windows\windows_self_pipe.cpp">
-      <Filter>Source Files\network\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sources\network\windows\windows_tcp_socket.cpp">
-      <Filter>Source Files\network\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\sources\network\common\tcp_socket.cpp">
-      <Filter>Source Files\network\common</Filter>
     </ClCompile>
     <ClCompile Include="..\sources\network\io_service.cpp">
       <Filter>Source Files\network</Filter>
@@ -83,6 +65,12 @@ SOFTWARE.
       <Filter>Source Files\network</Filter>
     </ClCompile>
     <ClCompile Include="..\sources\network\tcp_server.cpp">
+      <Filter>Source Files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sources\network\self_pipe.cpp">
+      <Filter>Source Files\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\sources\network\tcp_socket.cpp">
       <Filter>Source Files\network</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,10 +102,8 @@ SOFTWARE.
     <ClInclude Include="..\includes\tacopie\network\tcp_socket.hpp">
       <Filter>Header Files\tacopie\network</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\includes\tacopie\tacopie">
-      <Filter>Header Files\tacopie</Filter>
-    </None>
+    <ClInclude Include="..\includes\tacopie\tacopie.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
